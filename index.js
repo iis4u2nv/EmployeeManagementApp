@@ -50,9 +50,7 @@ else if (response.choice == "add an employee") {
   addEmployee()
 }
 
-  });
-
-
+});
 
 } 
 
@@ -72,7 +70,7 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  db.query("select * from employees", (res, err) =>{
+  db.query("select * from employee", (res, err) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
@@ -89,7 +87,7 @@ function addDepartment() {
     },
     ]) 
     .then((response) => {
-  db.query("insert into department (name) values ('" + response.dname + "')", (res, err) =>{
+  // db.query("insert into department (name) values ('" + response.dname + "')", (res, err) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
@@ -106,7 +104,7 @@ function addRole() {
     },
     ])
     .then((response) => { 
-  db.query("insert into role (name) values ('" + response.title + "')", (res, err) =>{
+  // db.query("insert into role (name) values ('" + response.title + response.salary + response.department_id "')", (res, err) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
