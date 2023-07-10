@@ -102,11 +102,11 @@ function addRole() {
     {
       type: 'input',
       message: 'what is the role name?',
-      name: 'dname'      
+      name: 'title'      
     },
     ])
     .then((response) => { 
-  db.query("insert into role (name) values ('" + response.dname + "')", (res, err) =>{
+  db.query("insert into role (name) values ('" + response.title + "')", (res, err) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
