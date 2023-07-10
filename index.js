@@ -89,7 +89,7 @@ function addDepartment() {
     },
     ]) 
     .then((response) => {
-  db.query("insert into department (name) values (" + dname + ")", (res, err) =>{
+  db.query("insert into department (name) values ('" + response.dname + "')", (res, err) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
@@ -97,11 +97,20 @@ function addDepartment() {
 }
 
 function addRole() {
-  db.query("insert * into role", (res, err) =>{
+  inquirer 
+  .prompt([
+    {
+      type: 'input',
+      message: 'what is the role name?',
+      name: 'dname'      
+    },
+    ])
+    .then((response) => { 
+  db.query("insert into role (name) values ('" + response.dname + "')", (res, err) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
-  })
+  })});
 }
 function addEmployee() {
   db.query("insert * into employee", (res, err) =>{
