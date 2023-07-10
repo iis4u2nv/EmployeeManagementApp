@@ -1,19 +1,27 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
+// Import and require mysql2
 const mysql = require("mysql2");
 
 const PORT = process.env.PORT || 3001;
+// const app = inquirer();
 
+// Express middleware
+// app.use(inquirer.urlencoded({ extended: false }));
+// app.use(inquirer.json());
+
+// Connect to database
 const db = mysql.createConnection({
     user: 'root',
     database: "employee_db",
     password: "LuckyLu",
     host: "localhost"
-})
-// db.connect()
+  },
+  console.log(`Connected to the employee_db database.`)
+);
 
 function menu() {
-
-inquirer
+inquirer 
   .prompt([
     {
       type: 'list',
@@ -29,10 +37,26 @@ inquirer
     else if (response.choice == "view all roles") {
         viewRoles()
     }
+    else if (response.choice == "view all employees") {
+      viewEmployees()
   }
+  else if (response.choice == "add a department") {
+    addDepartment()
+}
+else if (response.choice == "add a role") {
+  addRole()
+}
+else if (response.choice == "add an employee") {
+  addEmployee()
+}
 
-  );
-} function viewDepartments() {
+  });
+
+
+
+} 
+
+function viewDepartments() {
     db.query("select * from department", (res, err) =>{
         if (err) {console.log(err)}
         console.table(res)
@@ -46,5 +70,59 @@ function viewRoles() {
         menu()
     })
 }
-menu()
 
+function viewEmployees() {
+  db.query("select * from employees", (res, err) =>{
+      if (err) {console.log(err)}
+      console.table(res)
+      menu()
+  })
+}
+
+function addDepartment() {
+  inquirer 
+  .prompt([
+    {
+      type: 'input',
+      message: 'what is the department name?',
+      name: 'dname'      
+    },
+    ]) 
+    .then((response) => {
+  db.query("insert into department (name) values (" + dname + ")", (res, err) =>{
+      if (err) {console.log(err)}
+      console.table(res)
+      menu()
+    })});
+}
+
+function addRole() {
+  db.query("insert * into role", (res, err) =>{
+      if (err) {console.log(err)}
+      console.table(res)
+      menu()
+  })
+}
+function addEmployee() {
+  db.query("insert * into employee", (res, err) =>{
+      if (err) {console.log(err)}
+      console.table(res)
+      menu()
+  })
+}
+function updateEmployee() {
+  db.query("update * into employee", (res, err) =>{
+      if (err) {console.log(err)}
+      console.table(res)
+      menu()
+  })
+}
+menu();
+
+// .then((answers) => {
+//   const htmlPageContent = generateHTML(answers);
+
+//   fs.writeFile('index.html', htmlPageContent, (err) =>
+//     err ? console.log(err) : console.log('Successfully created index.html!')
+//   );
+// });
