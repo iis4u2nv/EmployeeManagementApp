@@ -3,19 +3,14 @@ const fs = require('fs');
 // Import and require mysql2
 const mysql = require("mysql2");
 
-const PORT = process.env.PORT || 3001;
-// const app = inquirer();
-
-// Express middleware
-// app.use(inquirer.urlencoded({ extended: false }));
-// app.use(inquirer.json());
 
 // Connect to database
 const db = mysql.createConnection({
     user: 'root',
     database: "employee_db",
     password: "LuckyLu",
-    host: "localhost"
+    host: "localhost",
+    port: 3306
   },
   console.log(`Connected to the employee_db database.`)
 );
@@ -49,20 +44,22 @@ else if (response.choice == "add a role") {
 else if (response.choice == "add an employee") {
   addEmployee()
 }
-
+else if (response.choice == "update an employee role") {
+  updateEmployee()
+}
 });
 
 } 
 
 function viewDepartments() {
-    db.query("select * from department", (res, err) =>{
+    db.query("select * from department", (err, res) =>{
         if (err) {console.log(err)}
         console.table(res)
         menu()
     })
 }
 function viewRoles() {
-    db.query("select * from role", (res, err) =>{
+    db.query("select * from role", (err, res) =>{
         if (err) {console.log(err)}
         console.table(res)
         menu()
@@ -70,7 +67,7 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  db.query("select * from employee", (res, err) =>{
+  db.query("select * from employee", (err, res) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
@@ -87,7 +84,7 @@ function addDepartment() {
     },
     ]) 
     .then((response) => {
-  db.query("insert into department (name) values ('" + response.dname + "')", (res, err) =>{
+  db.query("insert into department (name) values ('" + response.dname + "')", (err, res) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
@@ -115,25 +112,67 @@ function addRole() {
 
     ])
     .then((response) => { 
-  db.query("insert into role (title, salary, deparment_id) values (" + response.title + ", " + response.salary + ", " + response.department_id +")", (res, err) =>{
+  db.query("insert into role (title, salary, department_id) values ('" + response.title + "', " + response.salary + ", " + response.id +")", (err, res) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
   })});
 }
+
 function addEmployee() {
-  db.query("insert * into employee", (res, err) =>{
+  inquirer 
+  .prompt([
+    {
+      type: 'input',
+      message: 'what is the employee first name?',
+      name: 'fName'      
+    },
+    {
+      type: 'input',
+      message: 'what is the employee last name?',
+      name: 'lName'    
+    },
+    {
+      type: 'input',
+      message: 'enter role id',
+      name: 'id'
+    },
+    {
+      type: 'input',
+      message: 'enter manager id',
+      name: 'manager_id'
+    },
+    ])
+    .then((response) => { 
+  db.query(`insert into employee (first_name, last_name, role_id, manager_id) values("${response.fName}", "${response.lName}", ${response.id}, ${response.manager_id})`, (err, res) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
   })
+})
 }
 function updateEmployee() {
-  db.query("update * into employee", (res, err) =>{
+  inquirer 
+  .prompt([
+    {
+      type: 'input',
+      message: 'what is the employee id?',
+      name: 'empId'      
+    },
+    {
+      type: 'input',
+      message: 'what is the new role id?',
+      name: 'roleId'    
+    },
+
+    ])
+    .then((response) => { 
+  db.query(`update employee set role_id = ${response.roleId} where id = ${response.empId}`, (err, res) =>{
       if (err) {console.log(err)}
       console.table(res)
       menu()
   })
+})
 }
 menu();
 
