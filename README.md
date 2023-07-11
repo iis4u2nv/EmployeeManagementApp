@@ -2,16 +2,16 @@
 
 ## Description
 
-Creating a note taker dynamically. As I open the Note Taker application, there will be a landing page with a link to a notes page. As I click on the link to the notes page, there will be a page with existing notes listed in the left-hand column, plus empty field to enter a new note title and the note's text in the right-hand column. As I enter a new note title and the note's text it should appear a Save icon in the navegation at the top of the page. As I click on the Save icon, it should show the new saved note in the left-hand column with the other existing notes. As I click on an existing note in the list in the left-hand column, it should appear that note in the right-hand column. As I click on the Write icon in the navigation at the top of the page, it should show empty fields to enter a new note title and the note's text in the right-hand column.
+Presume you are in a command-line application that accepts user input. The application needs to start then you will be presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role. If you choose to view all departments, you will be presented with a formatted table showing department names and department ids. If you choose to view all roles, you will be presented with the job title, role id, the department that role belongs to, and the salary for that role. If you choose to view all employees, you wil be presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and manager's id that the employees report to. If you choose to add a department, you will be prompted to enter the name of the department and that department is added to the database. If you choose to add a role, you will be prompted to enter the name, salary, and department for the role and that role is added to the database. If you choose to add an employee, you will be prompted to enter the employee’s first name, last name, role, and manager id, and that employee is added to the database. If you choose to update an employee role, you will be prompted to select an employee to update and their new role and this information is updated in the database. 
+
 
 ## Mock up
 
 The following video show the web application's appearance and functionality:
 
-https://drive.google.com/file/d/1gMsz76AoLT9tj7AwZXTGxMYRxiP9pcT2/view
 
-Assets\Screenshot (156).png
-![Note titled “Pay Airbnb taxes” reads, “Pay Airbnb taxes at the begining of each month” with other notes listed on the left.](./Assets/Screenshot_(158).png)
+
+
 
 
 ## License
